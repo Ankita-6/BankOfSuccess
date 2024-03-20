@@ -55,6 +55,7 @@
     <Compile Include="AccountFactory.cs" />
     <Compile Include="BankDbContext.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="IPolicy.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="IDGenerator.cs" />
     <Compile Include="PrivilegeType.cs" />

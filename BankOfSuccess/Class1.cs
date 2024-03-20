@@ -45,7 +45,8 @@ namespace BankOfSuccess
         }
         public void SetPolicy(IPolicy policy)
         {
-            this.policy = policy;
+            PolicyFactory pFactory = PolicyFactory.Instance;
+            this.policy = pFactory.CreatePolicy(this.getAccType(), this.privilegeType.ToString());
         }
     }
 
@@ -113,61 +114,4 @@ namespace BankOfSuccess
 
     public enum AccountType { SAVINGS , CURRENT};
 
-    public interface IPolicy
-    {
-        double GetMinBalance();
-        double GetRateOfInterest();
-    }
-
-    public class Policy : IPolicy
-    {
-        private double minBalance;
-        private double rateOfInterest;
-
-        public Policy(double minBalance, double rateOfInterest)
-        {
-            this.minBalance = minBalance;
-            this.rateOfInterest = rateOfInterest;
-        }
-
-        public double GetMinBalance()
-        {
-            return minBalance;
-        }
-
-        public double GetRateOfInterest()
-        {
-            return rateOfInterest;
-        }
-    }
-
-    public class PolicyFactory
-    {
-        private static readonly PolicyFactory Instance = new PolicyFactory();
-
-        protected PolicyFactory() {  }
-    
-        public virtual IPolicy CreatePolicy(string accType, string privilege)
-        {
-            string key = $"{accType.ToUpper()}-{privilege.ToUpper()}";
-            string policyConfig = ConfigurationManager.AppSettings[$"Policy_{key}"];
-
-            if (policyConfig != null)
-            {
-                string[] values = policyConfig.Split(',');
-
-                if (values.Length != 2)
-                {
-                    throw new ConfigurationErrorsException($"Invalid policy configuration for key: {key}");
-                }
-
-                double minBalance = double.Parse(values[0]);
-                double rateOfInterest = double.Parse(values[1]);
-
-                return new Policy(minBalance, rateOfInterest);
-            }
-
-            throw new InvalidPolicyTypeException($"Invalid policy type: {key}");
-        }
-    }
 }
