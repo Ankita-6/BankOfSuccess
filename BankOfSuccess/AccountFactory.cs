@@ -5,6 +5,8 @@ namespace BankOfSuccess
 {
     public class AccountFactory
     {
+        protected AccountFactory() { }
+        public static readonly AccountFactory Instance = new AccountFactory();  
         public Account createAccount(AccountType type)
         {
             string className = ConfigurationManager.AppSettings[$"AccountType_{type.ToString()}"];

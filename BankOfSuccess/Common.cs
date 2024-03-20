@@ -8,4 +8,8 @@ namespace BankOfSuccess
         {
         }
     }
+    public class InvalidPolicyTypeException : Exception
+    {
+        public InvalidPolicyTypeException(string message) : base(message) { }   
+    }
 }
