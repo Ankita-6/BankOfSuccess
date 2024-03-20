@@ -7,15 +7,15 @@ namespace BankOfSuccess
         public static int ID = 1000;
         public static int generateID()
         {
-            if(ID == 1000)
+            using (StreamReader reader = new StreamReader(@"getId.txt"))
             {
-                using (StreamReader reader = new StreamReader(@"getID.txt"))
-                {
-
-                    ID = int.Parse(reader.ReadToEnd());
-                }
+                ID = int.Parse(reader.ReadToEnd());
             }
-            return ID++;
+            using (StreamWriter writer = new StreamWriter(@"getId.txt"))
+            {
+                writer.Write(ID+1);
+            }
+            return ID;
         }
     }
 }

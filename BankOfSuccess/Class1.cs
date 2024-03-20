@@ -22,13 +22,13 @@ namespace BankOfSuccess
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)] // Disable auto-generation
-        protected string accNo {  get; set; }
+        public string accNo {  get; set; }
         protected string Name { get; set; }
         protected string Pin {  get; set; }
         protected bool active { get; set; }
         protected DateTime dateOfOpening {  get; set; }
-        protected double balance {  get; set; }
-        protected PrivilegeType privilegeType {  get; set; }
+        public double balance {  get; set; }
+        public PrivilegeType privilegeType {  get; set; }
 
         public abstract bool Open();
 
@@ -43,7 +43,7 @@ namespace BankOfSuccess
         {
             return policy;
         }
-        public void SetPolicy(IPolicy policy)
+        public void SetPolicy()
         {
             PolicyFactory pFactory = PolicyFactory.Instance;
             this.policy = pFactory.CreatePolicy(this.getAccType(), this.privilegeType.ToString());
@@ -52,7 +52,7 @@ namespace BankOfSuccess
 
     public class Current : Account
     {
-        Current()
+        public Current()
         { 
             accNo = "CUR" + IDGenerator.generateID();
         }
@@ -84,7 +84,7 @@ namespace BankOfSuccess
     }
     public class Savings : Account
     {
-        Savings()
+        public Savings()
         {
             accNo = "SAV" + IDGenerator.generateID();
         }
@@ -114,4 +114,5 @@ namespace BankOfSuccess
 
     public enum AccountType { SAVINGS , CURRENT};
 
+    public enum PrivilegeType { GOLD, REGULAR, PLATINUM }
 }

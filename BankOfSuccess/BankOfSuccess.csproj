@@ -61,18 +61,13 @@
     <Compile Include="IPolicy.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="IDGenerator.cs" />
-    <Compile Include="PrivilegeType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResultGenerator.cs" />
     <Compile Include="UI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="getID.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
